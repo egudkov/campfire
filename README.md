@@ -9,3 +9,4 @@
 7. Add bootstrap CDN link and JS dependencies
 8. Add font awesome CDN link
 9. Create AppNavbar, import Router to the App
+10. Setup Router switch with Route to Dashboard
