@@ -10,3 +10,4 @@
 8. Add font awesome CDN link
 9. Create AppNavbar, import Router to the App
 10. Setup Router switch with Route to Dashboard
+11. Sidebar and Users components are added and rendered at Dashboard
