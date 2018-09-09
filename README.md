@@ -6,3 +6,5 @@
 4. npm i react-router-dom
 5. npm start
 6. Delete boilerplate stuff
+7. Add bootstrap CDN link and JS dependencies
+8. Add font awesome CDN link
