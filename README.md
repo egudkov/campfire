@@ -8,3 +8,4 @@
 6. Delete boilerplate stuff
 7. Add bootstrap CDN link and JS dependencies
 8. Add font awesome CDN link
+9. Create AppNavbar, import Router to the App
