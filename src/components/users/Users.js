@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 class Users extends Component {
     render() {
@@ -20,12 +21,34 @@ class Users extends Component {
                     <div className="row">
                         <div className="col-md-6">
                             <h2>
-                                <i className="fas fa-users" ></i> Users
+                                <i className="fas fa-users" /> Users
                             </h2>
                         </div>
-                        <div className="col-md-6">
-                        </div>
+                        <div className="col-md-6" />
                     </div>
+
+                    <table className="table table-striped">
+                        <thead className="thead-inverse">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map(user => (
+                                <tr key={user.id}>
+                                    <td>{user.firstName} {user.lastName}</td>
+                                    <td>{user.email}</td>
+                                    <td>
+                                        <Link to={`/user/${user.id}`} className="btn btn-secondary btn-sm">
+                                            <i className="fas fa-arrow-circle-right"></i> Details
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             );
         } else {
