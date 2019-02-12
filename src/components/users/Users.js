@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class Users extends Component {
     render() {
-        const users = [{
-            id: '1',
-            firstName: 'Иван',
-            lastName: 'Фихтеншварц',
-            email: 'ivan@example.com',
-        }, {
-            id: '2',
-            firstName: 'Василиса',
-            lastName: 'Колокольчикова',
-            email: 'vasya@eaxample.com',
-        }];
+        const { users } = this.props;
 
         if (users) {
             return (
@@ -57,4 +50,9 @@ class Users extends Component {
     }
 }
 
-export default Users;
+export default compose(
+    firestoreConnect([{ collection: 'users' }]),
+    connect((state, props) => ({
+        users: state.firestore.ordered.users
+    })),
+)(Users);
