@@ -7,8 +7,27 @@ import { firestoreConnect } from 'react-redux-firebase';
 import Spinner from '../layout/Spinner';
 
 class Users extends Component {
+    state = {
+        usersCount: null,
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { users } = props;
+
+        if (users) {
+            const usersCount = users.length;
+
+            return {
+                usersCount,
+            };
+        }
+
+        return null;
+    }
+
     render() {
         const { users } = this.props;
+        const { usersCount } = this.state;
 
         if (users) {
             return (
@@ -19,7 +38,7 @@ class Users extends Component {
                                 <i className="fas fa-users" /> Users
                             </h2>
                         </div>
-                        <div className="col-md-6" />
+                        <div className="col-md-6">Users count: {usersCount}</div>
                     </div>
 
                     <table className="table table-striped">
