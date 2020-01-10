@@ -1,8 +1,8 @@
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import firebase from 'firebase';
 import 'firebase/firestore';
-import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
-import { reduxFirestore, firestoreReducer } from 'redux-firestore';
+import { firebaseReducer } from 'react-redux-firebase';
+import { createFirestoreInstance, firestoreReducer } from 'redux-firestore';
 // Reducers
 // @todo
 
@@ -27,12 +27,6 @@ firebase.initializeApp(firebaseConfig);
 // Initialize other services on firebase instance
 firebase.firestore();
 
-// Add reactReduxFirebase enhancer when making store creator
-const createStoreWithFirebase = compose(
-    reactReduxFirebase(firebase, rrfConfig), // firebase instance as first argument
-    reduxFirestore(firebase)
-)(createStore);
-
 // Add firebase to reducers
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
@@ -41,11 +35,14 @@ const rootReducer = combineReducers({
 
 // Create store with reducers and initial state
 const initialState = {};
-// Третий аргумент нужен для использования reduxDevTools и reduxFirebase (?)
-// Непонятно, зачем ещё раз дёргать reactReduxFirebase(firebase)
-const store = createStoreWithFirebase(rootReducer, initialState, compose(
-    reactReduxFirebase(firebase),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+// Третий аргумент нужен для использования reduxDevTools
+const store = createStore(rootReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+export const rrfProps = {
+    firebase,
+    config: rrfConfig,
+    dispatch: store.dispatch,
+    createFirestoreInstance // <- needed if using firestore
+  }
 
 export default store;
